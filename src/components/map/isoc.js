@@ -1,9 +1,9 @@
 import mapboxgl from "mapbox-gl";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "../../style/map/isoc.css";
 
 const Isoc = function (props) {
-  const [apiResponse, setApiResponse] = useState([]);
+  console.log("test");
 
   const getIso = async function () {
     const urlBase = "https://api.mapbox.com/isochrone/v1/mapbox/";
@@ -30,39 +30,31 @@ const Isoc = function (props) {
       requestOptions
     )
       .then((response) => response.json())
-      .then((data) => setApiResponse(data.features));
+      .then((data) => console.log(data));
   };
-
-  useEffect(() => {
-    if (props.loading === false) {
-      props.map.current.on("load", () => {
-        console.log(apiResponse);
-        props.map.current.addSource("iso", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [],
-          },
-        });
-        props.map.current.addLayer(
-          {
-            id: "isoLayer",
-            type: "fill",
-            source: "iso",
-            layout: {},
-            paint: {
-              "fill-color": "#5a3fc0",
-              "fill-opacity": 0.3,
-            },
-          },
-          "poi-label"
-        );
-        getIso();
-        console.log(apiResponse);
-        //props.map.current.getSource("iso").setData(apiResponse);
-      });
-    }
-  });
+  // props.map.current.on("load", () => {
+  //   props.map.current.addSource("iso", {
+  //     type: "geojson",
+  //     data: {
+  //       type: "FeatureCollection",
+  //       features: [],
+  //     },
+  //   });
+  //   props.map.current.addLayer(
+  //     {
+  //       id: "isoLayer",
+  //       type: "fill",
+  //       source: "iso",
+  //       layout: {},
+  //       paint: {
+  //         "fill-color": "#5a3fc0",
+  //         "fill-opacity": 0.3,
+  //       },
+  //     },
+  //     "poi-label"
+  //   );
+  // getIso();
+  // });
 
   return (
     <div className="paramContainer">

@@ -28,11 +28,11 @@ const RenderMap = function () {
   return (
     <div>
       <div ref={mapContainer} className="map-container" />
-      {/* <Isoc map={map} loading={isLoading} /> */}
-      <LiveCoord
+      <Isoc map={map} loading={isLoading} />
+      {/* <LiveCoord
         coord={{ lng, setLng, lat, setLat, zoom, setZoom }}
         map={map}
-      />
+      /> */}
     </div>
   );
 };

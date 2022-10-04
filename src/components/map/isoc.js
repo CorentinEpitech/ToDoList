@@ -1,11 +1,12 @@
 import mapboxgl from "mapbox-gl";
-import { useEffect } from "react";
+import { useState } from "react";
 import "../../style/map/isoc.css";
 
 const Isoc = function (props) {
+  const [returned, setReturned] = useState();
   console.log("test");
 
-  const getIso = async function () {
+  const getIso = function () {
     const urlBase = "https://api.mapbox.com/isochrone/v1/mapbox/";
     const lon = 7.14882;
     const lat = 43.663739;
@@ -30,7 +31,9 @@ const Isoc = function (props) {
       requestOptions
     )
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setReturned(data))
+      .then(console.log("Updated"));
+    console.log(returned);
   };
   // props.map.current.on("load", () => {
   //   props.map.current.addSource("iso", {
@@ -55,7 +58,6 @@ const Isoc = function (props) {
   //   );
   // getIso();
   // });
-
   return (
     <div className="paramContainer">
       <form id="params">
@@ -102,6 +104,7 @@ const Isoc = function (props) {
           </label>
         </div>
       </form>
+      <button onClick={getIso}>TEST</button>
     </div>
   );
 };
